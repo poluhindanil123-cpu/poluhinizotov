@@ -1,0 +1,50 @@
+event_time	command_type	argument
+2026-11-05 11:40:09.732109	Query	SELECT * FROM sql_practice.my_actions ORDER BY event_time DESC
+2026-11-05 11:40:09.731869	Query	select @@version_comment limit 1
+2026-11-05 11:39:55.424159	Query	ALTER TABLE customers DROP COLUMN phone
+2026-11-05 11:39:54.971414	Query	UPDATE customers SET phone = '123-36-77' WHERE id = 4
+2026-11-05 11:39:54.935219	Query	ALTER TABLE customers ADD COLUMN phone VARCHAR(20)
+2026-11-05 11:39:50.011278	Query	DELETE FROM orders WHERE id = 6
+2026-11-05 11:39:43.668729	Query	UPDATE orders SET status = 'paid' WHERE id = 3
+2026-11-05 11:39:43.110791	Query	UPDATE customers SET city = 'Екатеринбург' WHERE id = 4
+2026-11-05 11:39:37.898619	Query	SELECT name FROM customers WHERE id IN (SELECT customer_id FROM orders WHERE amount > 1000)
+2026-11-05 11:39:33.696130	Query	SELECT c.name, o.id AS order_id, o.amount\nFROM customers c LEFT JOIN orders o ON c.id = o.customer_id
+2026-11-05 11:39:33.182315	Query	SELECT c.name, o.order_date, o.amount\nFROM customers c INNER JOIN orders o ON c.id = o.customer_id
+2026-11-05 11:39:28.171988	Query	SELECT customer_id, SUM(amount) AS total_amount\nFROM orders GROUP BY customer_id HAVING SUM(amount) > 2000
+2026-11-05 11:39:27.529066	Query	SELECT customer_id, COUNT(*) AS order_count, SUM(amount) AS total_amount\nFROM orders GROUP BY customer_id
+2026-11-05 11:39:21.298444	Query	SELECT AVG(amount) AS avg_amount FROM orders
+2026-11-05 11:39:20.647590	Query	SELECT SUM(amount) AS total_sum FROM orders
+2026-11-05 11:39:20.646325	Query	SELECT COUNT(*) AS total_orders FROM orders
+2026-11-05 11:39:16.294170	Query	SELECT * FROM customers WHERE city IN ('Москва', 'Казань')
+2026-11-05 11:39:15.710527	Query	SELECT * FROM orders WHERE amount BETWEEN 1000 AND 3000
+2026-11-05 11:39:15.709529	Query	SELECT * FROM customers WHERE name LIKE 'И%'
+2026-11-05 11:39:15.707875	Query	SELECT * FROM orders ORDER BY amount DESC
+2026-11-05 11:39:15.706570	Query	SELECT * FROM orders WHERE amount > 1000
+2026-11-05 11:39:15.705311	Query	SELECT * FROM customers WHERE city = 'Москва'
+2026-11-05 11:39:10.983173	Query	SELECT * FROM orders
+2026-11-05 11:39:10.381585	Query	SELECT * FROM customers
+2026-11-05 11:39:03.498291	Query	INSERT INTO orders (customer_id, order_date, amount, status) VALUES\n  (1, '2026-10-01', 1500.00, 'paid'),\n  (1, '2026-10-05', 2300.50, 'paid'),\n  (2, '2026-10-03', 800.00, 'new'),\n  (3, '2026-10-07', 4200.00, 'paid'),\n  (3, '2026-10-10', 1100.00, 'cancelled'),\n  (4, '2026-10-12', 950.00, 'new')
+2026-11-05 11:39:02.942985	Query	INSERT INTO customers (name, email, city) VALUES\n  ('Иван Иванов', 'ivan@example.com', 'Москва'),\n  ('Пётр Петров', 'petr@example.com', 'Санкт-Петербург'),\n  ('Мария Сидорова', 'maria@example.com', 'Москва'),\n  ('Алексей Смирнов', 'alex@example.com', 'Казань'),\n  ('Ольга Кузнецова', 'olga@example.com', 'Новосибирск')
+2026-11-05 11:39:02.928885	Query	show tables
+2026-11-05 11:39:02.927347	Query	show databases
+2026-11-05 11:38:56.761612	Query	select @@version_comment limit 1
+2026-11-05 11:38:24.304179	Query	DESCRIBE orders
+2026-11-05 11:38:23.751874	Query	DESCRIBE customers
+2026-11-05 11:38:16.252830	Query	CREATE TABLE orders (\n    id INT AUTO_INCREMENT PRIMARY KEY,\n    customer_id INT NOT NULL,\n    order_date DATE NOT NULL,\n    amount DECIMAL(10, 2) NOT NULL,\n    status VARCHAR(20) DEFAULT 'new',\n    FOREIGN KEY (customer_id) REFERENCES customers(id)\n) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+2026-11-05 11:38:15.779725	Query	CREATE TABLE customers (\n    id INT AUTO_INCREMENT PRIMARY KEY,\n    name VARCHAR(100) NOT NULL,\n    email VARCHAR(100) NOT NULL UNIQUE,\n    city VARCHAR(100),\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+2026-11-05 11:37:58.513651	Query	show tables
+2026-11-05 11:37:58.510895	Query	show databases
+2026-11-05 11:37:57.874851	Query	CREATE DATABASE sql_practice CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+2026-11-05 11:37:43.318524	Query	select @@version_comment limit 1
+2026-11-05 11:36:29.893802	Query	
+2026-11-05 11:36:29.893734	Query	shutdown
+2026-11-05 11:36:29.873263	Query	DROP DATABASE IF EXISTS test
+2026-11-05 11:36:29.868704	Query	GRANT ALL ON *.* TO 'root'@'%' WITH GRANT OPTION
+2026-11-05 11:36:29.860170	Query	CREATE USER 'root'@'%' IDENTIFIED BY <secret>
+2026-11-05 11:36:29.859481	Query	FLUSH PRIVILEGES
+2026-11-05 11:36:29.859027	Query	GRANT ALL ON *.* TO 'root'@'localhost' WITH GRANT OPTION
+2026-11-05 11:36:29.851856	Query	ALTER USER 'root'@'localhost' IDENTIFIED BY <secret>
+2026-11-05 11:36:29.851457	Query	--  or products like mysql-fabric won't work
+2026-11-05 11:36:29.851287	Query	-- What's done in this file shouldn't be replicated
+2026-11-05 11:36:29.850850	Query	-- enable autocommit explicitly (in case it was disabled globally)
+2026-11-05 11:36:29.850562	Query	select @@version_comment limit 1
